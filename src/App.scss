@@ -1,0 +1,27 @@
+:root{
+  --item-margin: 5px;
+  --min-item-height: 150;  
+
+  @media (max-width:400px) {
+    --min-item-height: 100;    
+  }
+}
+
+#root{
+  background-color: #e4e4e4;
+}
+
+.App {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}

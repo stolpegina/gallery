@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Gallery from './components/Gallery';
+import Upload from './components/Upload';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+
+class App extends Component{
+  constructor(){
+    super();
+
+    this.state = {
+      galleryImages:[]
+    }
+  }
+
+  componentDidMount(){
+    fetch('https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json')
+    .then(response => response.json())
+    .then(({galleryImages}) => this.setState({galleryImages}));
+  }
+
+  addItem = (image) => {
+    const gallery = this.state.galleryImages;
+    gallery.push({
+      width: image.width,
+      height: image.height,
+      url: image.src
+    });
+    this.setState({gallery})
+  }
+
+  removeItem = (id) => {
+    const gallery = this.state.galleryImages.filter((image) => image.url !== id);
+    this.setState({galleryImages: gallery});
+  }
+
+  render(){
+    const {galleryImages} = this.state;
+    
+    return (
+      <div className="App">
+        <header className="App-header">
+        <Gallery 
+          galleryImages={galleryImages}
+          removeItem={(i) => this.removeItem(i)}
+        />
+        <Upload addItem={this.addItem}/>
+        </header>
+      </div>
+    );
+  }  
 }
 
 export default App;

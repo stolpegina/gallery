@@ -1,0 +1,19 @@
+.item{
+    &__content{
+      display: inline-block;
+      list-style: none;
+      &:not(:last-child) {
+        margin-right: var(--item-margin);
+      }
+    }
+    &__remove{
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      font-size: 12px;
+    }
+  }
